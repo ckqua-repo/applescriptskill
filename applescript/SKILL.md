@@ -26,7 +26,7 @@ allowed-tools:
 This skill does **not** ship a fixed library of actions. Instead, the agent dynamically
 generates AppleScript at runtime based on the user's intent. Every macOS app that
 supports the AppleScript dictionary can be automated — the reference patterns in
-`references/patterns.md` are starting points, not limits.
+`references/` are starting points, not limits.
 
 ### Why AppleScript, Never JXA
 
@@ -91,7 +91,7 @@ def format_applescript_date(iso_str: str) -> str:
     return dt.strftime("%B %-d, %Y at %-I:%M:%S %p")
 ```
 
-**Critical**: See the "Date Formatting Gotchas" section in `references/patterns.md`
+**Critical**: See [`references/date-formatting.md`](references/date-formatting.md)
 for why `%-d` and `%-I` are required.
 
 ## Agent Workflow
@@ -101,14 +101,16 @@ When a user asks to automate a macOS app:
 1. **Identify the target app** and the operation (create, read, update, delete).
 2. **Check permissions** — see the table below. If the app requires approval,
    warn the user before running.
-3. **Generate AppleScript** dynamically. Use `references/patterns.md` as a
+3. **Check for a ready-made script** in `scripts/`. If one exists for the task,
+   run it directly with the appropriate arguments — no need to generate AppleScript.
+4. **Otherwise, generate AppleScript** dynamically. Use `references/` as a
    starting point, then adapt to the exact request.
-4. **Handle dates** — if the task involves dates or times, use `format_applescript_date()`
+5. **Handle dates** — if the task involves dates or times, use `format_applescript_date()`
    to convert from ISO 8601.
-5. **Execute** via `run_applescript()` or `osascript` in Bash.
-6. **Parse output** — `osascript` prints the result of the last expression to
+6. **Execute** via `run_applescript()` or `osascript` in Bash.
+7. **Parse output** — `osascript` prints the result of the last expression to
    stdout. Parse it to confirm success or extract data.
-7. **Report back** — tell the user what happened in plain language.
+8. **Report back** — tell the user what happened in plain language.
 
 ## macOS Permissions Table
 
@@ -124,6 +126,31 @@ When a user asks to automate a macOS app:
 (e.g., Terminal, iTerm, VS Code) to have Accessibility access. If the script
 fails with "not allowed assistive access," instruct the user to enable it in
 **System Settings > Privacy & Security > Accessibility**.
+
+## Ready-Made Scripts
+
+Pre-built `.applescript` files the agent can run directly via `osascript`. These
+save tokens by avoiding AppleScript generation for common tasks.
+
+Scripts are organized by application under `scripts/`:
+
+| Application | Directory | Description |
+|-------------|-----------|-------------|
+| Mail | `scripts/mail/` | Search, read, draft, reply, and cross-app actions (email → reminder/calendar) |
+
+To use a script, browse the relevant directory, read the comment header at the top
+of the file for usage and arguments, then run with:
+
+```bash
+osascript scripts/<app>/<script>.applescript [args...]
+```
+
+Scripts that accept date arguments expect AppleScript date strings like
+`"April 5, 2026 at 9:00:00 AM"`. Use `format_applescript_date()` to convert
+from ISO 8601 before passing to these scripts.
+
+The agent should prefer ready-made scripts over generating AppleScript when
+a script exists for the task.
 
 ## Reference Patterns
 
