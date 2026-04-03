@@ -127,9 +127,19 @@ fails with "not allowed assistive access," instruct the user to enable it in
 
 ## Reference Patterns
 
-See [`references/patterns.md`](references/patterns.md) for vetted, copy-paste-ready
-AppleScript snippets covering Notification Center, Reminders, Calendar, Notes,
-Clipboard, Dialogs, System Events, Finder, and Mail.
+Vetted, copy-paste-ready AppleScript snippets are in `references/`, one file per app:
+
+- [`references/notification-center.md`](references/notification-center.md) — display notifications
+- [`references/reminders.md`](references/reminders.md) — create, list, complete reminders
+- [`references/calendar.md`](references/calendar.md) — create events, list calendars
+- [`references/notes.md`](references/notes.md) — create, append, search notes
+- [`references/clipboard.md`](references/clipboard.md) — read/write clipboard
+- [`references/dialogs.md`](references/dialogs.md) — dialogs, alerts, choose from list
+- [`references/system-events.md`](references/system-events.md) — UI scripting, keystrokes, menu clicks
+- [`references/finder.md`](references/finder.md) — file/folder operations
+- [`references/mail.md`](references/mail.md) — compose, send, search email
+- [`references/date-formatting.md`](references/date-formatting.md) — date parsing gotchas and helpers
 
 These patterns are starting points. The agent should adapt and compose them to
-match exactly what the user needs.
+match exactly what the user needs. Only load the reference files relevant to the
+current task.

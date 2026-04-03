@@ -18,9 +18,18 @@ Reminders, Calendar, Notes, Mail, Finder, Notification Center, System Events, Cl
 
 ```
 applescript/
-├── SKILL.md                  # Main skill definition — the entry point agents read
+├── SKILL.md                            # Main skill definition — the entry point agents read
 └── references/
-    └── patterns.md           # Copy-paste-ready AppleScript snippets for common tasks
+    ├── notification-center.md          # Display notifications with sound
+    ├── reminders.md                    # Create, list, complete reminders
+    ├── calendar.md                     # Create events, list calendars, get today's events
+    ├── notes.md                        # Create, append, search notes
+    ├── clipboard.md                    # Read/write clipboard
+    ├── dialogs.md                      # Dialogs, alerts, choose from list
+    ├── system-events.md                # UI scripting, keystrokes, menu clicks
+    ├── finder.md                       # File and folder operations
+    ├── mail.md                         # Compose, send, search email
+    └── date-formatting.md              # Date parsing gotchas and helpers
 ```
 
 ### `applescript/SKILL.md`
@@ -33,16 +42,9 @@ The core skill file. Contains:
 - **Agent workflow** — step-by-step instructions for how the agent should handle automation requests
 - **macOS permissions table** — which apps require user approval and what to expect on first run
 
-### `applescript/references/patterns.md`
+### `applescript/references/`
 
-A reference library of vetted AppleScript snippets covering:
-
-- Notification Center, Reminders, Calendar, Notes
-- Clipboard, Dialogs, System Events / UI Scripting
-- Finder, Mail
-- Date formatting gotchas (why zero-padded dates break)
-
-These patterns are starting points the agent adapts to each request, not a fixed API.
+Each file contains vetted, copy-paste-ready AppleScript snippets for a specific app or topic. The agent loads only the reference files relevant to the current task — this is part of the progressive disclosure model (see below).
 
 ## How It Works: Progressive Disclosure
 
