@@ -117,7 +117,11 @@ When a user asks to automate a macOS app:
 6. **Execute** via `run_applescript()` or `osascript` in Bash.
 7. **Parse output** — `osascript` prints the result of the last expression to
    stdout. Parse it to confirm success or extract data.
-8. **Report back** — tell the user what happened in plain language.
+8. **Save reusable scripts** — If the generated AppleScript handles a discrete,
+   reusable task, save it as a `.applescript` file under `scripts/<app>/`.
+   Follow the conventions in [`references/script-authoring.md`](references/script-authoring.md).
+   Verify it runs correctly before considering the task complete.
+9. **Report back** — tell the user what happened in plain language.
 
 ## macOS Permissions Table
 
@@ -164,6 +168,7 @@ a script exists for the task.
 Vetted, copy-paste-ready AppleScript snippets are in `references/`, one file per app:
 
 - [`references/scripting-guide.md`](references/scripting-guide.md) — syntax, structure, error handling, and pitfalls (read first)
+- [`references/script-authoring.md`](references/script-authoring.md) — how to create, save, and verify new reusable scripts
 - [`references/notification-center.md`](references/notification-center.md) — display notifications
 - [`references/reminders.md`](references/reminders.md) — create, list, complete reminders
 - [`references/calendar.md`](references/calendar.md) — create events, list calendars
