@@ -14,63 +14,6 @@ Reminders, Calendar, Notes, Mail, Finder, Notification Center, System Events, Cl
 - `osascript` (built-in on macOS)
 - `sdef` (built-in on macOS, used for dictionary lookups)
 
-## File Structure
-
-```
-applescript/
-├── SKILL.md                            # Main skill definition — the entry point agents read
-├── scripts/
-│   └── mail/
-│       ├── draft-new.applescript       # Draft a new email
-│       ├── draft-reply.applescript     # Draft a reply to an email
-│       ├── email-to-reminder.applescript   # Create a Reminder from an email
-│       └── email-to-calendar.applescript   # Create a Calendar event from an email
-└── references/
-    ├── scripting-guide.md              # Syntax, error handling, dictionary lookup, retry logic
-    ├── script-authoring.md             # How to create and verify new reusable scripts
-    ├── notification-center.md          # Display notifications with sound
-    ├── reminders.md                    # Create, list, complete reminders
-    ├── calendar.md                     # Create events, list calendars, get today's events
-    ├── notes.md                        # Create, append, search notes
-    ├── clipboard.md                    # Read/write clipboard
-    ├── dialogs.md                      # Dialogs, alerts, choose from list
-    ├── system-events.md                # UI scripting, keystrokes, menu clicks
-    ├── finder.md                       # File and folder operations
-    ├── mail.md                         # Compose, send, search email
-    └── date-formatting.md              # Date parsing gotchas and helpers
-```
-
-### `applescript/SKILL.md`
-
-The core skill file. Contains:
-
-- **Executing AppleScript** — how to run scripts via `osascript` with heredocs
-- **Date formatting** — rules for AppleScript's locale-sensitive date parsing
-- **Scripting guide** — pointer to syntax, error handling, and dictionary lookup reference
-- **Agent workflow** — step-by-step instructions including error diagnosis and retry
-- **macOS permissions table** — which apps require user approval and what to expect on first run
-- **Ready-made scripts** — pre-built `.applescript` files the agent can run directly
-
-### `applescript/scripts/`
-
-Pre-built `.applescript` files the agent can run directly via `osascript`. These save tokens by avoiding AppleScript generation for common tasks. Each script has a comment header with usage and arguments.
-
-### `applescript/references/`
-
-Each file contains vetted, copy-paste-ready AppleScript snippets for a specific app or topic. The agent loads only the reference files relevant to the current task — this is part of the progressive disclosure model (see below).
-
-## How It Works: Progressive Disclosure
-
-This skill follows the [agent skills progressive disclosure](https://agentskills.io/what-are-skills) model, which loads information in three stages to minimize context window usage:
-
-1. **Discovery** — The agent sees only the skill's `name` and `description` from the SKILL.md frontmatter (~100 tokens). This is enough for the agent to decide whether the skill is relevant to the current task.
-
-2. **Activation** — When the agent determines the skill matches the user's request, it loads the full `SKILL.md` instructions (execution patterns, workflow, and permissions table).
-
-3. **Execution** — As the agent works through the task, it pulls in specific reference files and scripts only when needed. This keeps detailed material out of context until it's actually required.
-
-This means the skill costs almost nothing when it's not in use, and loads just what's needed when it is.
-
 ## Quick Install
 
 The fastest way to install this skill is the one-liner `npx skills` command. It works across Claude Code, Cursor, Codex, Copilot, and 40+ other agent products — no manual copying, no path juggling. The CLI detects your environment and drops the skill in the right place.
@@ -154,6 +97,63 @@ Once installed, ask your agent to do things like:
 - "Draft an email to team@example.com with this week's update"
 
 The agent reads the skill definition, generates the appropriate AppleScript, and executes it on your Mac.
+
+## File Structure
+
+```
+applescript/
+├── SKILL.md                            # Main skill definition — the entry point agents read
+├── scripts/
+│   └── mail/
+│       ├── draft-new.applescript       # Draft a new email
+│       ├── draft-reply.applescript     # Draft a reply to an email
+│       ├── email-to-reminder.applescript   # Create a Reminder from an email
+│       └── email-to-calendar.applescript   # Create a Calendar event from an email
+└── references/
+    ├── scripting-guide.md              # Syntax, error handling, dictionary lookup, retry logic
+    ├── script-authoring.md             # How to create and verify new reusable scripts
+    ├── notification-center.md          # Display notifications with sound
+    ├── reminders.md                    # Create, list, complete reminders
+    ├── calendar.md                     # Create events, list calendars, get today's events
+    ├── notes.md                        # Create, append, search notes
+    ├── clipboard.md                    # Read/write clipboard
+    ├── dialogs.md                      # Dialogs, alerts, choose from list
+    ├── system-events.md                # UI scripting, keystrokes, menu clicks
+    ├── finder.md                       # File and folder operations
+    ├── mail.md                         # Compose, send, search email
+    └── date-formatting.md              # Date parsing gotchas and helpers
+```
+
+### `applescript/SKILL.md`
+
+The core skill file. Contains:
+
+- **Executing AppleScript** — how to run scripts via `osascript` with heredocs
+- **Date formatting** — rules for AppleScript's locale-sensitive date parsing
+- **Scripting guide** — pointer to syntax, error handling, and dictionary lookup reference
+- **Agent workflow** — step-by-step instructions including error diagnosis and retry
+- **macOS permissions table** — which apps require user approval and what to expect on first run
+- **Ready-made scripts** — pre-built `.applescript` files the agent can run directly
+
+### `applescript/scripts/`
+
+Pre-built `.applescript` files the agent can run directly via `osascript`. These save tokens by avoiding AppleScript generation for common tasks. Each script has a comment header with usage and arguments.
+
+### `applescript/references/`
+
+Each file contains vetted, copy-paste-ready AppleScript snippets for a specific app or topic. The agent loads only the reference files relevant to the current task — this is part of the progressive disclosure model (see below).
+
+## How It Works: Progressive Disclosure
+
+This skill follows the [agent skills progressive disclosure](https://agentskills.io/what-are-skills) model, which loads information in three stages to minimize context window usage:
+
+1. **Discovery** — The agent sees only the skill's `name` and `description` from the SKILL.md frontmatter (~100 tokens). This is enough for the agent to decide whether the skill is relevant to the current task.
+
+2. **Activation** — When the agent determines the skill matches the user's request, it loads the full `SKILL.md` instructions (execution patterns, workflow, and permissions table).
+
+3. **Execution** — As the agent works through the task, it pulls in specific reference files and scripts only when needed. This keeps detailed material out of context until it's actually required.
+
+This means the skill costs almost nothing when it's not in use, and loads just what's needed when it is.
 
 ## Customizing the Skill
 
