@@ -22,17 +22,17 @@ CLI source: [github.com/vercel-labs/skills](https://github.com/vercel-labs/skill
 
 ```bash
 # Global install — available across every project on your machine
-npx skills add applescript --global
+npx skills add ckqbuilds/applescriptskill -g
 ```
 
 ```bash
 # Project-level install — scoped to the current repository
-npx skills add applescript
+npx skills add ckqbuilds/applescriptskill
 ```
 
 ```bash
 # Agent-specific install — target a particular agent (e.g. claude-code, cursor, codex, copilot)
-npx skills add applescript --agent claude-code
+npx skills add ckqbuilds/applescriptskill -a claude-code
 ```
 
 After the command finishes, skip to **Step 3: Verify it's working** below to confirm the install.
