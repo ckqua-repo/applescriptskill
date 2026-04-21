@@ -16,6 +16,8 @@ metadata:
 allowed-tools:
   - Bash(osascript:*)
   - Bash(sdef:*)
+  - Bash(swiftc:*)
+  - Bash(swift:*)
 ---
 
 # AppleScript Automation Skill
@@ -116,7 +118,8 @@ Scripts are organized by application under `scripts/`:
 
 | Application | Directory | Description |
 |-------------|-----------|-------------|
-| Mail | `scripts/mail/` | Search, read, draft, reply, and cross-app actions (email → reminder/calendar) |
+| Mail | `scripts/mail/` | Search, read, draft, reply, and cross-app actions (email &#8594; reminder/calendar) |
+| System | `scripts/system/` | PDF generation (html2pdf.swift &#8212; compile once with `swiftc`) |
 
 To use a script, browse the relevant directory, read the comment header at the top
 of the file for usage and arguments, then run with:
@@ -147,6 +150,7 @@ Vetted, copy-paste-ready AppleScript snippets are in `references/`, one file per
 - [`references/finder.md`](references/finder.md) — file/folder operations
 - [`references/mail.md`](references/mail.md) — compose, send, search email
 - [`references/date-formatting.md`](references/date-formatting.md) — date parsing gotchas and helpers
+- [`references/pdf-generation.md`](references/pdf-generation.md) — HTML-to-PDF pipeline, page layout, templates
 
 These patterns are starting points. The agent should adapt and compose them to
 match exactly what the user needs. Only load the reference files relevant to the
