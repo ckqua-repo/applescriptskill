@@ -2,5 +2,8 @@
 .kiro/
 .mcp.json
 CLAUDE.md
+# Session context for next Claude Code instance
+SESSION.md
+
 # Tethr local store
 .tethr/
